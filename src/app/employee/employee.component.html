@@ -4,7 +4,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
-        {{empDetails | json}}  
+        {{empDetails | json}}
       </div>
     </div>
   </div>
@@ -18,56 +18,56 @@
     <div class="row">
       <div class="col-12">
         <h3>Add New User</h3>
-         <form id="employeeForm" [formGroup]="employeeForm" (ngSubmit)="submitEmpForm()">
+        <form id="employeeForm" [formGroup]="employeeForm" (ngSubmit)="submitEmpForm()">
           <div class="mb-3">
             <label for="firstName" class="form-label">FirstName</label>
-            <input type="text" class="form-control" formControlName="firstName"  id="firstName" placeholder="Enter first name" 
-            [ngClass]="{ 'is-invalid': isSubmitted && f['firstName']['errors']}">
+            <input type="text" class="form-control" formControlName="firstName" id="firstName"
+              placeholder="Enter first name" [ngClass]="{ 'is-invalid': isSubmitted && f['firstName']['errors']}">
             <div *ngIf="isSubmitted && f['firstName']['errors']" class="error-box">
-            <div *ngIf="f['firstName']['errors']['required']">firstName is required</div>
-            <div *ngIf="f['firstName']['errors']['minlength']">Enter min 3 letters</div>
-            <div *ngIf="f['firstName']['errors']['maxlength']">Enter max 10 letters</div>
+              <div *ngIf="f['firstName']['errors']['required']">firstName is required</div>
+              <div *ngIf="f['firstName']['errors']['minlength']">Enter min 3 letters</div>
+              <div *ngIf="f['firstName']['errors']['maxlength']">Enter max 10 letters</div>
+            </div>
           </div>
-          </div>
-          <!-- <div class="mb-3">
+          <div class="mb-3">
             <label for="lastName" class="form-label">lastName</label>
-            <input type="text" class="form-control" formControlName="lastName" id="lastName" placeholder="Enter last name"
-            [ngClass]="{ 'is-invalid': isSubmitted && f['lastName']['errors'] }">
+            <input type="text" class="form-control" formControlName="lastName" id="lastName"
+              placeholder="Enter last name" [ngClass]="{ 'is-invalid': isSubmitted && f['lastName']['errors'] }">
             <div *ngIf="isSubmitted && f['lastName']['errors']" class="error-box">
-             <div *ngIf="f['lastName']['errors']['required']">Enter lastName is required</div>
-             <div *ngIf="f['lastName']['errors']['minlength']">Enter min 3 letters</div>
+              <div *ngIf="f['lastName']['errors']['required']">Enter lastName is required</div>
+              <div *ngIf="f['lastName']['errors']['minlength']">Enter min 3 letters</div>
+            </div>
           </div>
-          </div>  -->
-           <!-- <div class="mb-3">
+          <div class="mb-3">
             <label for="phoneNumber" class="form-label">phoneNumber</label>
-            <input type="text" class="form-control" formControlName="phoneNumber" id="phoneNumber" placeholder="Enter phoneNumber"
-            [ngClass]="{ 'is-invalid': isSubmitted && f['phoneNumber']['errors'] }">
+            <input type="text" class="form-control" formControlName="phoneNumber" id="phoneNumber"
+              placeholder="Enter phoneNumber" [ngClass]="{ 'is-invalid': isSubmitted && f['phoneNumber']['errors'] }">
             <div *ngIf="isSubmitted && f['phoneNumber']['errors']" class="error-box">
               <div *ngIf="f['phoneNumber']['errors']['required']">phoneNumber is required</div>
-             <div *ngIf="f['phoneNumber']['errors']['minlength']"> Enter 10 digits valid phoneNumber</div>
-             <div *ngIf="f['phoneNumber']['errors']['maxlength']">Enter 10 digits valid phoneNumber</div>
+              <div *ngIf="f['phoneNumber']['errors']['minlength']"> Enter 10 digits valid phoneNumber</div>
+              <div *ngIf="f['phoneNumber']['errors']['maxlength']">Enter 10 digits valid phoneNumber</div>
+            </div>
           </div>
-          </div> -->
-            <!-- <div class="mb-3">
+          <div class="mb-3">
             <label for="emailId" class="form-label">emailId</label>
-            <input type="text" class="form-control"  formControlName="mailId" id="emailId" placeholder="Enter emailId"
-            [ngClass]="{ 'is-invalid': isSubmitted && f['emailId']['errors'] }">
-            <div *ngIf="isSubmitted && f['emailId']['errors']"  class="error-box">
+            <input type="text" class="form-control" formControlName="mailId" id="emailId" placeholder="Enter emailId"
+              [ngClass]="{ 'is-invalid': isSubmitted && f['emailId']['errors'] }">
+            <div *ngIf="isSubmitted && f['emailId']['errors']" class="error-box">
               <div *ngIf="f['emailId']['errors']['required']">emailId is required</div>
               <div *ngIf="f['emailId']['errors']['email']">Enter valid emailId</div>
+            </div>
           </div>
-          </div> -->
-           <!-- <div class="mb-3">
+          <div class="mb-3"> -->
             <label for="status" class="form-label">Status</label>
             <select class="form-select" formControlName="status" aria-label="Default select example" id="status"
-            [ngClass]="{ 'is-invalid': isSubmitted && f['status']['errors'] }"> 
+              [ngClass]="{ 'is-invalid': isSubmitted && f['status']['errors'] }">
               <option selected>--Select Status</option>
               <option [value]="item" *ngFor="let item of empStatus; let i = index">{{item | titlecase}}</option>
             </select>
-            <div *ngIf="isSubmitted && f['status']['errors']"  class="error-box"> 
-               <div *ngIf="f['status']['errors'][status']"> status is required</div>
+            <div *ngIf="isSubmitted && f['status']['errors']" class="error-box">
+              <div *ngIf="f['status']['errors'][status']"> status is required</div>
+            </div>
           </div>
-          </div> -->
           <div class="mb-3">
             <button type="submit" class="btn btn-primary btn-sm">Submit</button>
             <!-- <button type="reset" class="btn btn-primary btn-sm" (click)=" resetEmpForm()">reset</button> -->
@@ -98,7 +98,7 @@
     </tr>
   </thead>
   <tbody>
-    <!-- <ng-container *ngIf="empList.length > 0">
+    <ng-container *ngIf="empList.length > 0">
       <tr *ngFor="let item of empList; let i = index">
         <th scope="row">{{i + 1}}</th>
         <ng-container [ngSwitch]="'item.status'">
@@ -125,7 +125,7 @@
           </ng-container>
         </ng-container>
         <td>{{ item.phoneNumber }}</td>
-        <td>{{ item.emailId }}</td> -->
+        <td>{{ item.emailId }}</td>
 
         <td>
           <ng-container [ngSwitch]="item.status">
@@ -140,9 +140,9 @@
                 In Progress
               </button>
             </ng-container>
-
           </ng-container>
-         </td> 
+
+        </td>
         <!-- <td>
            <ng-container *ngIf="item.status == 'success'">
             <button type="button" class="btn btn-success btn-sm">
@@ -159,21 +159,20 @@
           </ng-container>
           </td>
           -->
-        <!-- <td> -->
-          <!-- <button type="button" class="btn btn-primary btn-sm" id="123" [attr.my-data]="item.status">Edit</button> -->
-          <!-- <button type="button" class="btn btn-success btn-sm" id="123" (click)="viewEmployee(i, item)"
-            [attr.my-data]="item.status">View</button> -->
-          <!-- <button type="button" class="btn btn-danger btn-sm" id="123" (click)="deleteEmployee(i, item)"
-            [attr.my-data]="item.status">Delete</button> -->
+        <td>
+          <button type="button" class="btn btn-primary btn-sm" id="123" [attr.my-data]="item.status">Edit</button>
+          <button type="button" class="btn btn-success btn-sm" id="123" (click)="viewEmployee(i, item)"
+            [attr.my-data]="item.status">View</button>
+          <button type="button" class="btn btn-danger btn-sm" id="123" (click)="deleteEmployee(i, item)"
+            [attr.my-data]="item.status">Delete</button>
+        </td>
 
-         <!-- </td>  -->
-      
-     <!-- </ng-container>  -->
+        <!-- </ng-container>  -->
 
-     <!-- <ng-container *ngIf="empList.length == 0"> 
+        <ng-container *ngIf="empList.length == 0">
       <tr>
         <td colspan="4">Employee record not fount</td>
       </tr>
-     </ng-container>  -->
+    </ng-container>
   </tbody>
 </table>
