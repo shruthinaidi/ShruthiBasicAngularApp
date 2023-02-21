@@ -9,27 +9,27 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class EmployeeComponent implements OnInit {
   statesList: any = ["Telangana", "Andrapradesh", "westbengal"]
- empStatus: any = ['success', 'pending', 'inProgress', 'review'];
+  empStatus: any = ['success', 'pending', 'inProgress', 'review'];
   empList: any = [];
   empDetails: any;
   hasEmpDetails: boolean = false;
-  employeeForm!:FormGroup;
-  isSubmitted:boolean = false;
+  employeeForm!: FormGroup;
+  isSubmitted: boolean = false;
   constructor(
     private employeeService: EmployeeService,
     private toastr: ToastrService
   ) {
     this.employeeForm = new FormGroup({
       firstName: new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
-      lastName: new FormControl("", [Validators.required,Validators.minLength(3)]),
-      phoneNumber: new FormControl("",[Validators.required,Validators.minLength(10),Validators.maxLength(10)]),
-      emailId: new FormControl("",[Validators.required,Validators.email]),
-      status: new FormControl("",[Validators.required]),
+      lastName: new FormControl("", [Validators.required, Validators.minLength(3)]),
+      phoneNumber: new FormControl("", [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
+      emailId: new FormControl("", [Validators.required, Validators.email]),
+      status: new FormControl("", [Validators.required]),
     })
-   }
+  }
   ngOnInit(): void {
     this.toastr.success('Hello world!', 'Success');
-   // this.toastr.info('Hello world!', 'Toastr fun!');
+    // this.toastr.info('Hello world!', 'Toastr fun!');
     // this.toastr.warning('Hello world!', 'Toastr fun!');
     // this.toastr.error('Hello world!', 'Toastr fun!');
     this.loadEmployeeList();
@@ -38,14 +38,14 @@ export class EmployeeComponent implements OnInit {
   loadEmployeeList() {
     this.empList = this.employeeService.empList;
   }
-   get f() { 
-     return this.employeeForm.controls
-    }; // get all form fields access for template
-  submitEmpForm(){
+  get f() {
+    return this.employeeForm.controls
+  }; // get all form fields access for template
+  submitEmpForm() {
     console.log("form submited");
     console.log(this.employeeForm.valid)
     this.isSubmitted = true;
-    if(this.employeeForm.invalid){
+    if (this.employeeForm.invalid) {
       return
     }
     console.log(this.employeeForm.value);
@@ -64,7 +64,7 @@ export class EmployeeComponent implements OnInit {
 
     }
   }
- addEmployee() {
+  addEmployee() {
     let firstName: any = document.getElementById('firstName');
     let lastName: any = document.getElementById('lastName');
     let phoneNumber: any = document.getElementById('phoneNumber');
