@@ -13,14 +13,13 @@ import { DislikedTaskComponent } from './disliked-task/disliked-task.component';
 import { HeaderComponent } from './header/header.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { ProductsComponent } from './products/products.component';
-
 import { MakejsonPipe } from './makejson.pipe';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { EmployeeService } from './employee.service';
- import { ToastrModule } from 'ngx-toastr';
-
+import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {ReactiveFormsModule, FormsModule} from '@angular/forms'
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RxjsExamplesComponent } from './rxjs-examples/rxjs-examples.component'
 
 @NgModule({
   declarations: [
@@ -37,23 +36,18 @@ import {ReactiveFormsModule, FormsModule} from '@angular/forms'
     ProductsComponent,
     PageNotFoundComponent,
     MakejsonPipe,
-    
-   
-
-   
-    
+    RxjsExamplesComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(),
-   
     ReactiveFormsModule,
     FormsModule,
     AppRoutingModule
   ],
   // providers: [EmployeeService],
-   providers: [],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

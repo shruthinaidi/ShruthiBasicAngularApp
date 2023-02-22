@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../employee.service';
 import { ToastrService } from 'ngx-toastr';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -17,15 +17,31 @@ export class EmployeeComponent implements OnInit {
   isSubmitted: boolean = false;
   constructor(
     private employeeService: EmployeeService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private fb:FormBuilder
   ) {
     this.employeeForm = new FormGroup({
+      // firstName: new FormControl("Shruthi", [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
       firstName: new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
-      lastName: new FormControl("", [Validators.required, Validators.minLength(3)]),
-      phoneNumber: new FormControl("", [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
-      emailId: new FormControl("", [Validators.required, Validators.email]),
-      status: new FormControl("", [Validators.required]),
+       lastName: new FormControl("", [Validators.required, Validators.minLength(3)]),
+       phoneNumber: new FormControl("", [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
+       emailId: new FormControl("", [Validators.required, Validators.email]),
+       Status: new FormControl("", [Validators.required]),
+       address: new FormGroup({
+        state: new FormControl(''),
+        district: new FormControl(''),
+        city: new FormControl(''),
+        zipcode: new FormControl(''),
+     })  
     })
+    // this.employeeForm = this.fb.group({
+    //   // firstName: new FormControl("Sajjad", [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
+    //   firstName: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
+    //   lastName: ["", [Validators.required,Validators.minLength(3)]],
+    //   emailId:["", [Validators.required,Validators.email]],
+    //   phoneNo: ["", [Validators.required,Validators.minLength(10),Validators.maxLength(10)]],
+    //   status: ["", [Validators.required]],
+    // })
   }
   ngOnInit(): void {
     this.toastr.success('Hello world!', 'Success');
@@ -38,9 +54,12 @@ export class EmployeeComponent implements OnInit {
   loadEmployeeList() {
     this.empList = this.employeeService.empList;
   }
+
+  // get all form fields access for template
   get f() {
     return this.employeeForm.controls
-  }; // get all form fields access for template
+  }; 
+
   submitEmpForm() {
     console.log("form submited");
     console.log(this.employeeForm.valid)
@@ -49,6 +68,8 @@ export class EmployeeComponent implements OnInit {
       return
     }
     console.log(this.employeeForm.value);
+    console.log(this.employeeForm.value.firstName);//doubt
+    console.log(this.employeeForm.get('firstName')?.value);
     const formData: any = this.employeeForm.value;
     console.log(formData);
     const isEmpExist = this.empList.find((el: any) => {
@@ -62,8 +83,19 @@ export class EmployeeComponent implements OnInit {
       this.toastr.success('New employee is added successfully', 'success');
       this.employeeForm.reset();
 
+      //patchValue examples-1
+      // this.employeeForm.patchValue({  
+      //      "firstName":"Shruthi",
+      //      "lastName":"naidi"
+      // }); 
+
+           //patchValue examples-2
+          // this.employeeForm.get('firstName')?.patchValue('Shruthi');
+          // this.employeeForm.get('lastName')?.patchValue('naidi');
+
     }
   }
+  // add employee to employeeList variables
   addEmployee() {
     let firstName: any = document.getElementById('firstName');
     let lastName: any = document.getElementById('lastName');
@@ -93,7 +125,9 @@ export class EmployeeComponent implements OnInit {
 
     }
   }
-  resetEmpForm() {//we will use reset method to reset the entire form
+
+//we will use reset method to reset the entire form
+  resetEmpForm() {
     let firstName: any = document.getElementById('firstName');
     let lastName: any = document.getElementById('lastName');
     let phoneNumber: any = document.getElementById('phoneNumber');

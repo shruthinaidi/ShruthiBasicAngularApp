@@ -38,6 +38,7 @@
               <div *ngIf="f['lastName']['errors']['minlength']">Enter min 3 letters</div>
             </div>
           </div>
+
           <div class="mb-3">
             <label for="phoneNumber" class="form-label">phoneNumber</label>
             <input type="text" class="form-control" formControlName="phoneNumber" id="phoneNumber"
@@ -50,22 +51,30 @@
           </div>
           <div class="mb-3">
             <label for="emailId" class="form-label">emailId</label>
-            <input type="text" class="form-control" formControlName="mailId" id="emailId" placeholder="Enter emailId"
+            <input type="text" class="form-control" formControlName="emailId" id="emailId" placeholder="Enter emailId"
               [ngClass]="{ 'is-invalid': isSubmitted && f['emailId']['errors'] }">
             <div *ngIf="isSubmitted && f['emailId']['errors']" class="error-box">
               <div *ngIf="f['emailId']['errors']['required']">emailId is required</div>
               <div *ngIf="f['emailId']['errors']['email']">Enter valid emailId</div>
             </div>
           </div>
-          <div class="mb-3"> -->
-            <label for="status" class="form-label">Status</label>
-            <select class="form-select" formControlName="status" aria-label="Default select example" id="status"
-              [ngClass]="{ 'is-invalid': isSubmitted && f['status']['errors'] }">
+          <div class="mb-3" formGroupName="address">
+            <label for="" class="form-label">Address</label>
+            <input type="text" class="form-control" formControlName="state" placeholder="State">
+            <input type="text" class="form-control" formControlName="district" placeholder="District">
+            <input type="text" class="form-control" formControlName="city" placeholder="City">
+            <input type="text" class="form-control" formControlName="zipcode" placeholder="zipcode">
+
+          </div>
+          <div class="mb-3">
+            <label for="Status" class="form-label">Status</label>
+            <select class="form-select" formControlName="Status" aria-label="Default select example" id="Status"
+              [ngClass]="{ 'is-invalid': isSubmitted && f['Status']['errors'] }">
               <option selected>--Select Status</option>
               <option [value]="item" *ngFor="let item of empStatus; let i = index">{{item | titlecase}}</option>
             </select>
-            <div *ngIf="isSubmitted && f['status']['errors']" class="error-box">
-              <div *ngIf="f['status']['errors'][status']"> status is required</div>
+            <div *ngIf="isSubmitted && f['Status']['errors']" class="error-box">
+              <div *ngIf="f['Status']['errors']['required']"> status is required</div>
             </div>
           </div>
           <div class="mb-3">
@@ -78,7 +87,7 @@
   </div>
 </section>
 
-{{ empList.length }}
+<!-- {{ empList.length }} -->
 
 <!-- <select class="form-select" aria-label="Default select example">
   <option selected>---Select States--</option>
@@ -101,64 +110,52 @@
     <ng-container *ngIf="empList.length > 0">
       <tr *ngFor="let item of empList; let i = index">
         <th scope="row">{{i + 1}}</th>
-        <ng-container [ngSwitch]="'item.status'">
+
+        <ng-container [ngSwitch]="item.status">
           <ng-container *ngSwitchCase="'success'">
             <td [ngStyle]="{'font-size':'20px','color':'purple'}">{{ item.firstName }}</td>
           </ng-container>
           <ng-container *ngSwitchCase="'pending'">
-            <td [ngStyle]="{'font-size':'20px','color':'pink'}">{{ item.firstName }}</td>
+            <td [ngStyle]="{'font-size':'20px','color':'green'}">{{ item.firstName }}</td>
           </ng-container>
-
           <ng-container *ngSwitchCase="'inProgress'">
-            <td [ngStyle]="{'font-size':'20px','color':'blue'}">{{ item.firstName }}</td>
+            <td [ngStyle]="{'font-size':'20px','color':'red'}">{{ item.firstName }}</td>
           </ng-container>
         </ng-container>
-        <ng-container [ngSwitch]="item.lastName">
-          <ng-container *ngSwitchCase="'uppu'">
-            <td [ngStyle]="{'font-size':'20px','color':'blue'}">{{ item.lastName }}</td>
-          </ng-container>
-          <ng-container *ngSwitchCase="'uppunaidi'">
-            <td [ngStyle]="{'font-size':'20px','color':'red'}">{{ item.lastName }}</td>
-          </ng-container>
-          <ng-container *ngSwitchCase="'naidi'">
+
+        <ng-container [ngSwitch]="item.status">
+          <ng-container *ngSwitchCase="'success'">
             <td [ngStyle]="{'font-size':'20px','color':'purple'}">{{ item.lastName }}</td>
+          </ng-container>
+          <ng-container *ngSwitchCase="'pending'">
+            <td [ngStyle]="{'font-size':'20px','color':'green'}">{{ item.lastName }}</td>
+          </ng-container>
+          <ng-container *ngSwitchCase="'inProgress'">
+            <td [ngStyle]="{'font-size':'20px','color':'red'}">{{ item.lastName }}</td>
           </ng-container>
         </ng-container>
         <td>{{ item.phoneNumber }}</td>
         <td>{{ item.emailId }}</td>
 
+        
+
+       
+
         <td>
           <ng-container [ngSwitch]="item.status">
-            <ng-container *ngSwitchCase="success">
-              <button type="button" class="btn btn-success btn-sm">Success </button>
+            <ng-container *ngSwitchCase="'success'">
+              <button type="button" class="btn btn-success">Success</button>
             </ng-container>
-            <ng-container *ngSwitchCase="pending">
-              <button type="button" class="btn btn-dark btn-sm">Pending</button>
+            <ng-container *ngSwitchCase="'pending'">
+              <button type="button" class="btn btn-secondary">pending</button>
             </ng-container>
-            <ng-container *ngSwitchCase="inProgress">
-              <button type="button" class="btn btn-primary btn-sm">
-                In Progress
-              </button>
+            <ng-container *ngSwitchCase="'inProgress'">
+              <button type="button" class="btn btn-primary">inProgress</button>
             </ng-container>
           </ng-container>
-
         </td>
-        <!-- <td>
-           <ng-container *ngIf="item.status == 'success'">
-            <button type="button" class="btn btn-success btn-sm">
-              Success
-            </button>
-          </ng-container>
-          <ng-container *ngIf="item.status == 'pending'">
-            <button type="button" class="btn btn-danger btn-sm">Pending</button>
-          </ng-container>
-          <ng-container *ngIf="item.status == 'inProgress'">
-            <button type="button" class="btn btn-primary btn-sm">
-              In Progress
-            </button>
-          </ng-container>
-          </td>
-          -->
+
+
         <td>
           <button type="button" class="btn btn-primary btn-sm" id="123" [attr.my-data]="item.status">Edit</button>
           <button type="button" class="btn btn-success btn-sm" id="123" (click)="viewEmployee(i, item)"
@@ -167,12 +164,6 @@
             [attr.my-data]="item.status">Delete</button>
         </td>
 
-        <!-- </ng-container>  -->
-
-        <ng-container *ngIf="empList.length == 0">
-      <tr>
-        <td colspan="4">Employee record not fount</td>
-      </tr>
     </ng-container>
   </tbody>
 </table>
