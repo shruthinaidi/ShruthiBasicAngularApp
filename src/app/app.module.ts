@@ -19,7 +19,16 @@ import { EmployeeService } from './employee.service';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { RxjsExamplesComponent } from './rxjs-examples/rxjs-examples.component'
+import { RxjsExamplesComponent } from './rxjs-examples/rxjs-examples.component';
+import { ProductWithApiComponent } from './product-with-api/product-with-api.component'
+import { HttpClientModule } from '@angular/common/http';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ProductDetails2Component } from './product-details2/product-details2.component';
+import { AddEmployeeComponent } from './add-employee/add-employee.component';
+import { AddProductComponent } from './add-product/add-product.component';
+import { EditProductComponent } from './edit-product/edit-product.component';
+import { ViewProductComponent } from './view-product/view-product.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +46,14 @@ import { RxjsExamplesComponent } from './rxjs-examples/rxjs-examples.component'
     PageNotFoundComponent,
     MakejsonPipe,
     RxjsExamplesComponent,
+    ProductWithApiComponent,
+    ProductDetailsComponent,
+    ProductDetails2Component,
+    AddEmployeeComponent,
+    AddProductComponent,
+    EditProductComponent,
+    ViewProductComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +61,7 @@ import { RxjsExamplesComponent } from './rxjs-examples/rxjs-examples.component'
     ToastrModule.forRoot(),
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule,
     AppRoutingModule
   ],
   // providers: [EmployeeService],

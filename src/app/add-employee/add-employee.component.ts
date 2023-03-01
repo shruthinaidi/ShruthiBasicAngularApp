@@ -3,11 +3,11 @@ import { EmployeeService } from '../employee.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
-  selector: 'app-employee',
-  templateUrl: './employee.component.html',
-  styleUrls: ['./employee.component.scss']
+  selector: 'app-add-employee',
+  templateUrl: './add-employee.component.html',
+  styleUrls: ['./add-employee.component.scss']
 })
-export class EmployeeComponent implements OnInit {
+export class AddEmployeeComponent implements OnInit {
   statesList: any = ["Telangana", "Andrapradesh", "westbengal"]
   empStatus: any = ['success', 'pending', 'inProgress', 'review'];
   empList: any = [];
@@ -15,27 +15,26 @@ export class EmployeeComponent implements OnInit {
   hasEmpDetails: boolean = false;
   employeeForm!: FormGroup;
   isSubmitted: boolean = false;
-  constructor(
-    private employeeService: EmployeeService,
+
+  constructor( private employeeService: EmployeeService,
     private toastr: ToastrService,
-    private fb:FormBuilder
-  ) {
-    this.employeeForm = new FormGroup({
-      // firstName: new FormControl("Shruthi", [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
-      firstName: new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
-       lastName: new FormControl("", [Validators.required, Validators.minLength(3)]),
-       phoneNumber: new FormControl("", [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
-       emailId: new FormControl("", [Validators.required, Validators.email]),
-       Status: new FormControl("", [Validators.required]),
-       address: new FormGroup({
-        state: new FormControl('',[Validators.required]),
-        district: new FormControl('',[Validators.required]),
-        city: new FormControl('',[Validators.required]),
-        zipcode: new FormControl('',[Validators.required]),
-     }) ,
-     department: this.fb.array([this.createDept()]), 
-    });
-    // this.employeeForm = this.fb.group({
+    private fb:FormBuilder) { 
+      this.employeeForm = new FormGroup({
+        // firstName: new FormControl("Shruthi", [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
+        firstName: new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
+         lastName: new FormControl("", [Validators.required, Validators.minLength(3)]),
+         phoneNumber: new FormControl("", [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
+         emailId: new FormControl("", [Validators.required, Validators.email]),
+         Status: new FormControl("", [Validators.required]),
+         address: new FormGroup({
+          state: new FormControl('',[Validators.required]),
+          district: new FormControl('',[Validators.required]),
+          city: new FormControl('',[Validators.required]),
+          zipcode: new FormControl('',[Validators.required]),
+       }) ,
+       department: this.fb.array([this.createDept()]), 
+      });
+       // this.employeeForm = this.fb.group({
     //   // firstName: new FormControl("Sajjad", [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
     //   firstName: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
     //   lastName: ["", [Validators.required,Validators.minLength(3)]],
@@ -44,6 +43,8 @@ export class EmployeeComponent implements OnInit {
     //   status: ["", [Validators.required]],
     // })
   }
+    
+
   ngOnInit(): void {
     this.toastr.success('Hello world!', 'Success');
     // this.toastr.info('Hello world!', 'Toastr fun!');
@@ -61,6 +62,9 @@ export class EmployeeComponent implements OnInit {
   get departmentAsArray() {
     return this.employeeForm.controls["department"] as FormArray;
   }
+  get address() {
+    return this.employeeForm.controls['address'] as FormGroup;
+  }
   addNewDept(){
     console.log(this.departmentAsArray.length);
     if(this.departmentAsArray.length == 5){
@@ -77,9 +81,8 @@ export class EmployeeComponent implements OnInit {
   loadEmployeeList() {
     this.empList = this.employeeService.empList;
   }
-
-  // get all form fields access for template
-  get f() {
+   // get all form fields access for template
+   get f() {
     return this.employeeForm.controls
   }; 
 
@@ -105,8 +108,7 @@ export class EmployeeComponent implements OnInit {
       this.empList.push(formData);
       this.toastr.success('New employee is added successfully', 'success');
       this.employeeForm.reset();
-
-      //patchValue examples-1
+ //patchValue examples-1
       // this.employeeForm.patchValue({  
       //      "firstName":"Shruthi",
       //      "lastName":"naidi"
@@ -116,40 +118,39 @@ export class EmployeeComponent implements OnInit {
           // this.employeeForm.get('firstName')?.patchValue('Shruthi');
           // this.employeeForm.get('lastName')?.patchValue('naidi');
 
-    }
-  }
-  // add employee to employeeList variables
-  addEmployee() {
-    let firstName: any = document.getElementById('firstName');
-    let lastName: any = document.getElementById('lastName');
-    let phoneNumber: any = document.getElementById('phoneNumber');
-    let emailId: any = document.getElementById('emailId');
-    let status: any = document.getElementById('status');
-    console.log(firstName.value);
-    const formData: any = {
-      userId: 12,
-      firstName: firstName.value,
-      lastName: lastName.value,
-      phoneNumber: phoneNumber.value,
-      emailId: emailId.value,
-      status: status.value,
-    };
-    console.log(formData);
-    const isEmpExist = this.empList.find((el: any) => {
-      return el.emailId == formData.emailId;
-    });
-    //console.log(isEmpExist);
-    if (isEmpExist) {
-      this.toastr.warning('this mail is already in use', 'warning');
-    } else {
-      this.empList.push(formData);
-      this.toastr.success('New employee is added successfully', 'success');
-      this.resetEmpForm();
-
-    }
-  }
-
-//we will use reset method to reset the entire form
+        }
+      }
+      // add employee to employeeList variables
+      addEmployee() {
+        let firstName: any = document.getElementById('firstName');
+        let lastName: any = document.getElementById('lastName');
+        let phoneNumber: any = document.getElementById('phoneNumber');
+        let emailId: any = document.getElementById('emailId');
+        let status: any = document.getElementById('status');
+        console.log(firstName.value);
+        const formData: any = {
+          userId: 12,
+          firstName: firstName.value,
+          lastName: lastName.value,
+          phoneNumber: phoneNumber.value,
+          emailId: emailId.value,
+          status: status.value,
+        };
+        console.log(formData);
+        const isEmpExist = this.empList.find((el: any) => {
+          return el.emailId == formData.emailId;
+        });
+        //console.log(isEmpExist);
+        if (isEmpExist) {
+          this.toastr.warning('this mail is already in use', 'warning');
+        } else {
+          this.empList.push(formData);
+          this.toastr.success('New employee is added successfully', 'success');
+          this.resetEmpForm();
+    
+        }
+      }
+      //we will use reset method to reset the entire form
   resetEmpForm() {
     let firstName: any = document.getElementById('firstName');
     let lastName: any = document.getElementById('lastName');
@@ -189,27 +190,5 @@ export class EmployeeComponent implements OnInit {
   //updating employee record of employeeList variable
   updateEmployee() { }
 
-}
-//  {
-//    firstName:'Ramakanth',
-//    lastName:'uppu',
-//    phoneNumber:1234567890,
-//   mailId:'ramkanth@gmail.com',
-//   status:"success"
-// },
-// {
-//   firstName:'Dimpii',
-//   lastName:'uppunaidi',
-//   phoneNumber:9502580621,
-//   mailId:'dimpii@gmail.com',
-//   status:"pending"
-// },
-// {
-//   firstName:'shruthi',
-//   lastName:'naidi',
-//   phoneNumber:9502580621,
-//   mailId:'shruthi@gmail.com',
-//   status:"inProgress"
-// },
-// ];
 
+}

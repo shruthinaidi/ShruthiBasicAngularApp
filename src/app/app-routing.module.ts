@@ -11,11 +11,21 @@ import { DislikedTransactionHistoryComponent } from './disliked-transaction-hist
 import { DislikedTaskComponent } from './disliked-task/disliked-task.component';
 import { DislikedProfileComponent } from './disliked-profile/disliked-profile.component';
 import { DislikedAddressComponent } from './disliked-address/disliked-address.component';
+import { ProductWithApiComponent } from './product-with-api/product-with-api.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ProductDetails2Component } from './product-details2/product-details2.component';
+import { AddEmployeeComponent } from './add-employee/add-employee.component';
+import { AddProductComponent } from './add-product/add-product.component';
+import { EditProductComponent } from './edit-product/edit-product.component';
+import { ViewProductComponent } from './view-product/view-product.component';
+import { AuthGuard } from './auth.guard';
+import { LoginComponent } from './login/login.component';
 
 
 const routes: Routes = [
-  { path: "", redirectTo: "liked", pathMatch: "full" },
-  { path: "liked", component: LikedComponent },
+  { path: "", redirectTo: "login", pathMatch: "full" },
+  { path:"login", component:LoginComponent},
+  { path: "liked", component: LikedComponent,canActivate:[AuthGuard]},
   {
     path: "disliked", component: DislikedComponent, children: [
       { path: "", component: DislikedProfileComponent },
@@ -26,9 +36,16 @@ const routes: Routes = [
     ]
   },
   { path: "mostliked", component: MostlikedComponent },
-  { path: "employee", component: EmployeeComponent },
+  { path: "employee", component: EmployeeComponent,canActivate:[AuthGuard] },
   { path: "products", component: ProductsComponent },
   {path:"rxjs", component:RxjsExamplesComponent},
+  {path:"product-with-api",component:ProductWithApiComponent},
+  {path:"product-details/:productId",component:ProductDetailsComponent},
+  {path:"product-details2",component:ProductDetails2Component},
+  {path:"add-employee",component:AddEmployeeComponent},
+  {path:"add-product",component:AddProductComponent},
+  {path:"edit-product/:id",component:EditProductComponent},
+  {path:"view-product/:id",component:ViewProductComponent},
   { path: "**", component: PageNotFoundComponent },
 
 ];
