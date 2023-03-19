@@ -1,0 +1,141 @@
+<!-- {{empList.length}   -->
+<!-- {{  empList | makejson}}  -->
+<section style="height: 200px;border: 2px solid gray;" *ngIf="hasEmpDetails">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        {{empDetails | json}}
+      </div>
+    </div>
+  </div>
+</section>
+<!-- <select class="form-select" aria-label="Default select example" id="status">
+  <option selected>--Select Status</option>
+  <option [value]="item" *ngFor="let item of empStatus; let i = index">{{item | titlecase}}</option>
+</select>  -->
+ <!-- <section style="min-height: 200px;border: 2px solid gray;"> -->
+<!-- {{ empList.length }} -->
+
+<!-- <select class="form-select" aria-label="Default select example">
+  <option selected>---Select States--</option>
+  <option [value]="item" *ngFor="let item of statesList; let i =index;">{{item}}</option>
+</select>  -->
+<button type="button" class="btn btn-primary btn-sm" id="123" (click)="addEditEmp()">Add New Employee</button>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">first</th>
+      <th scope="col">last</th>
+      <th scope="col">phoneNumber</th>
+      <th scope="col">emailId</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngIf="empList.length > 0">
+      <tr *ngFor="let item of empList; let i = index">
+        <th scope="row">{{i + 1}}</th>
+
+        <ng-container [ngSwitch]="item.status">
+          <ng-container *ngSwitchCase="'success'">
+            <td [ngStyle]="{'font-size':'20px','color':'purple'}">{{ item.firstName }}</td>
+          </ng-container>
+          <ng-container *ngSwitchCase="'pending'">
+            <td [ngStyle]="{'font-size':'20px','color':'green'}">{{ item.firstName }}</td>
+          </ng-container>
+          <ng-container *ngSwitchCase="'inProgress'">
+            <td [ngStyle]="{'font-size':'20px','color':'red'}">{{ item.firstName }}</td>
+          </ng-container>
+        </ng-container>
+
+        <ng-container [ngSwitch]="item.status">
+          <ng-container *ngSwitchCase="'success'">
+            <td [ngStyle]="{'font-size':'20px','color':'purple'}">{{ item.lastName }}</td>
+          </ng-container>
+          <ng-container *ngSwitchCase="'pending'">
+            <td [ngStyle]="{'font-size':'20px','color':'green'}">{{ item.lastName }}</td>
+          </ng-container>
+          <ng-container *ngSwitchCase="'inProgress'">
+            <td [ngStyle]="{'font-size':'20px','color':'red'}">{{ item.lastName }}</td>
+          </ng-container>
+        </ng-container>
+        <td>{{ item.phoneNumber }}</td>
+        <td>{{ item.emailId }}</td>
+       <td>
+          <ng-container [ngSwitch]="item.status">
+            <ng-container *ngSwitchCase="'success'">
+              <button type="button" class="btn btn-success">Success</button>
+            </ng-container>
+            <ng-container *ngSwitchCase="'pending'">
+              <button type="button" class="btn btn-secondary">pending</button>
+            </ng-container>
+            <ng-container *ngSwitchCase="'inProgress'">
+              <button type="button" class="btn btn-primary">inProgress</button>
+            </ng-container>
+          </ng-container>
+        </td>
+
+
+        <td>
+          <button type="button" class="btn btn-primary btn-sm" id="123" [attr.my-data]="item.status">Edit</button>
+          <button type="button" class="btn btn-success btn-sm" id="123" (click)="viewEmployee(i, item)"
+            [attr.my-data]="item.status">View</button>
+          <button type="button" class="btn btn-danger btn-sm" id="123" (click)="showEmpDeleteModal
+          (i, item)"
+            [attr.my-data]="item.status">Delete</button>
+        </td>
+
+    </ng-container>
+  </tbody>
+</table>
+<ng-template #empDetailsRef let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Employee Details</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        {{empDetails | json}}
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('close')">Close</button>
+  </div>
+</ng-template>
+<ng-template #empAddEditRef let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Employee</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        Form
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary btn-sm" (click)="modal.close('close')">Save</button>
+  </div>
+</ng-template>
+<ng-template #empDeleteRef let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Delete Confirmation</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+   
+      <div class="mb-3">
+        <p>Are you sure want to delete this record?</p>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger btn-sm" (click)="modal.close('close')">No</button>
+      <button type="button" class="btn btn-primary btn-sm" (click)="deleteEmployee()">Yes</button>  
+  </div>
+</ng-template>

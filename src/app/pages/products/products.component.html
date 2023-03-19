@@ -1,0 +1,38 @@
+<p>products works!</p>
+<!-- {{productList | json}} -->
+ <p>{{empDetaile | json}}</p> 
+{{empData | json}}
+<div class="container-fluid">
+    <div class="row">
+      <ng-container *ngFor="let item of productList; let i =index; trackBy:trackProducts">
+        
+            <div class="col-sm-12 col-md-2 col-lg-2">
+                <div class="card">
+                    <img [src]="item.productImg" class="card-img-top" alt="">
+                    <div class="card-body">
+                       <!-- <h5 class="card-title">{{item.productName | titlecase   }}</h5>  -->
+                      <!-- <h5 class="card-title">{{item.productName | lowercase  }}</h5> -->
+                        <!-- <h5 class="card-title">{{item.productName | uppercase  }}</h5>  -->
+                        <h5 class="card-title">{{item.productName | titlecase | slice:0:5 }}</h5>
+                        <!-- <h5 class="card-title">{{item.productName | json }}</h5> -->
+                        
+      
+                      <p [ngClass]="item.isActive ? 'btn btn-success':'btn btn-danger'">{{item.isActive ? 'Active':'InActive'}}</p>
+                      <p>online shopping</p>
+                      <p>Rating:{{item.productRating}}</p>
+                      <p>offer:{{item.productDiscount}}</p>
+                      <p>3500</p>
+                      <p>M.R.P:{{item.productMRP}}</p>
+                      <p>{{item.createdAt | date:'mediumDate'	}}</p>
+                    </div>
+                  </div>
+              </div>
+        </ng-container>
+      
+    </div>
+  </div>
+   <div [ngSwitch]="'user'"> 
+   <div *ngSwitchCase="'user'">User content</div>
+    <div *ngSwitchCase="'employee'">Employee content</div>
+    <div *ngSwitchDefault>Please provide valid option</div>
+ </div> 
