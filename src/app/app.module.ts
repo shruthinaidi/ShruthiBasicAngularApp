@@ -37,6 +37,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SharedModule } from './shared/shared/shared.module';
+import { WidgetModule } from './widget/widget/widget.module';
 
 @NgModule({
   declarations: [
@@ -68,15 +70,18 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [
     BrowserModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(),
-    ReactiveFormsModule,
-    FormsModule,
-    HttpClientModule,
-    NgxPaginationModule,
+    // ToastrModule.forRoot(),
+    // ReactiveFormsModule,
+    // FormsModule,
+    // HttpClientModule,
+    // NgxPaginationModule,
+    // AppRoutingModule,
+    // NgxSpinnerModule,
+    // NgbAlertModule,
+    // NgbModule
     AppRoutingModule,
-    NgxSpinnerModule,
-    NgbAlertModule,
-    NgbModule
+    SharedModule,
+    WidgetModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   // providers: [EmployeeService],

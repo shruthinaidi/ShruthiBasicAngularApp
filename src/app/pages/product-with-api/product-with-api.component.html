@@ -1,6 +1,5 @@
-
 <!-- {{productList | json}} -->
- <p>product-with-api</p> 
+<p>product-with-api</p>
 <!-- <div class="page-heading-box">
     <h4>Product List</h4>
   </div> -->
@@ -16,11 +15,13 @@
         <div class="search-box d-flex">
             <input type="text" class="form-control" id="searchInput" (keyup)="getProductByCategoryOnKeyUp($event)"
                 placeholder="search by category" />
-            <button class="btn btn-sm btn-primary" appChangeColor (click)="getProductByCategoryOnClick($event)">Search</button>
+            <button class="btn btn-sm btn-primary" appChangeColor
+                (click)="getProductByCategoryOnClick($event)">Search</button>
             <button class="btn btn-sm btn-danger" *ngIf="isClearShow" (click)="clearInput()">clear</button>
         </div>
     </div>
     <div class="col-md-4">
+        <button type="button" class="btn btn-success btn-sm"> Export In Excel</button>
     </div>
 </div>
 <button type="button" class="btn btn-danger btn-sm" id="123" routerLink="/add-product">
@@ -38,13 +39,14 @@
         </tr>
     </thead>
     <tbody>
-        <ng-container *ngIf="productList?.length > 0">
+        <ng-container *ngIf="productList?.length > 0; else noData">
             <tr *ngFor="let item of productList |
             paginate:{itemsPerPage: paginationConfig.itemsPerPage,
                        currentPage:paginationConfig.currentPage
                     }; 
                     let i = index">
-                <th scope="row" style="width: 50px">{{(paginationConfig.currentPage - 1) * paginationConfig.itemsPerPage + i + 1 }}
+                <th scope="row" style="width: 50px">{{(paginationConfig.currentPage - 1) * paginationConfig.itemsPerPage
+                    + i + 1 }}
                 </th>
                 <td>{{ item.category }}</td>
                 <td>{{ item.brand }}</td>
@@ -61,16 +63,27 @@
                     <button type="button"  class="btn btn-danger btn-sm"  (click)="navigateToViewProductDetails2(item)">View WIth Qparams</button> -->
                 </td>
             </tr>
+            <tr>
+                <td colspan="4">
+                    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+                </td>
+            </tr>
         </ng-container>
-        <ng-container *ngIf="productList?.length==0">
+        <ng-template #noData>
+
+            <tr>
+                <td colspan="4">Product record not fount</td>
+            </tr>
+        </ng-template>
+        <!-- <ng-container *ngIf="productList?.length==0">
             <tr>
                 <td colspan="4">Product record not found</td>
             </tr>
-        </ng-container>
+        </ng-container> -->
     </tbody>
 </table>
-<ng-container *ngIf="productList.length != 0">
+<!-- <ng-container *ngIf="productList.length != 0">
     <div>
         <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
     </div>
-</ng-container>
+</ng-container>  -->

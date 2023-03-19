@@ -6,6 +6,10 @@ import { UsersComponent } from './users.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { ViewUserComponent } from './view-user/view-user.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared/shared.module';
+import { WidgetModule } from 'src/app/widget/widget/widget.module';
+
 
 
 @NgModule({
@@ -17,7 +21,10 @@ import { ViewUserComponent } from './view-user/view-user.component';
   ],
   imports: [
     CommonModule,
-    UsersRoutingModule
+    UsersRoutingModule,
+    SharedModule,
+    WidgetModule
+    
   ]
 })
 export class UsersModule { }

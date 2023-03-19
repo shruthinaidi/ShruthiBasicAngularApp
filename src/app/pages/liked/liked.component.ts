@@ -11,21 +11,25 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./liked.component.scss']
 })
 export class LikedComponent implements OnInit {
-   userObs$!:Observable<any>;
- testObs$:Observable<any> = from([10,30,60]);
-  constructor(private utillService:UtillsService, private http:HttpClient, private aRoute:ActivatedRoute) {
+  userObs$!: Observable<any>;
+  testObs$: Observable<any> = from([10, 30, 60]);
+  searchValue: string = "";
+  constructor(private utillService: UtillsService, private http: HttpClient, private aRoute: ActivatedRoute) {
     console.log("isUserLoggedIn---", this.utillService.isUserLoggedIn);
-    this.aRoute.data.subscribe((res:any)=>{
+    this.aRoute.data.subscribe((res: any) => {
       console.log("data coming from resolver");
       console.log(res.listOfUser);
     })
-   }
+  }
 
   ngOnInit(): void {
     this.userObs$ = this.http.get(`${environment.apiBaseUrl}users`);
   }
-  getInputValue(value:string){
+  getInputValue(value: string) {
     console.log(value);
+  }
+  getSearchVal() {
+    console.log(this.searchValue)
   }
 
 }
